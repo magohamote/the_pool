@@ -21,9 +21,10 @@ public class PlayerController : MonoBehaviour {
         
     
 		if (Input.GetKey ("space")) {
-            moveDirection.y = 0;
+            moveDirection.y = 1000;
         }
 		// Move the controller
+		//Vector3 moveDirection = transform.forward * Input.GetAxis("Vertical") * -1 * speed;
 		rigidbody.AddForce(moveDirection * Time.deltaTime);
 		
 		
