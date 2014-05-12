@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UDP Sense</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- MainActivity strings -->
+    <string name="acceleration_label">Acceleration:</string>
+    <string name="acceleration_value">x=0.0, y=0.0, z=0.0</string>
+    
+    <string name="address_label">Server IP:</string>
+    <string name="address_hint">192.168.1.4</string>
+    <string name="port_label">Port:</string>
+    <string name="port_hint">15935</string>
+    
+    <string name="start_capture">Start capture</string>
+    <string name="stop_capture">Stop capture</string>
+</resources>

@@ -82,6 +82,23 @@ public class UDPReceiver: MonoBehaviour
 	
 	// FixedUpdate is called before physics calculations
 	public void FixedUpdate () {
+		// Keyboard controller
+		float horizontal = Input.GetAxis("Horizontal");
+		transform.Rotate(0, horizontal * 90 * Time.deltaTime, 0);
+
+		float vertical = Input.GetAxis ("Vertical");
+		Vector3 moveDirection = transform.forward * vertical * -1 * speed;
+		if (Input.GetKey ("space")) {
+			moveDirection.y = 1000;
+		}
+		rigidbody.AddForce(moveDirection * Time.deltaTime);
+
+		// Reset values if keyboard detected
+		if (horizontal != 0 || vertical != 0) {
+			lastValues = null;
+		}
+
+		// App controller
 		if (lastValues != null && lastValues.Length == 3)
 		{
 			float rotationScale = (lastValues[1]/10.0f) * rotationSpeed * Time.deltaTime;
