@@ -20,8 +20,8 @@ public class UDPReceiver: MonoBehaviour
 	//Rotation speed
 	public float rotationSpeed = 100f;
 	
-	// The port number to listen to
-	public int port = 15935;
+	// The port number to listen to for android
+	public int port_android = 15935;
 
 	// Points GUI
 	public GUIText pointsText;
@@ -38,9 +38,9 @@ public class UDPReceiver: MonoBehaviour
 	// receiving Thread
 	private Thread receiveThread;
 
-	// udpclient object
-	private UdpClient client;
-	
+	// udpclient object for android
+	private UdpClient client_android;
+
 	// Used to identify
 	private long lastTimestamp = 0;
 	
@@ -127,7 +127,7 @@ public class UDPReceiver: MonoBehaviour
 	public void OnApplicationQuit() {
 		print("Application is quitting");
 		try {
-			client.Close ();
+			client_android.Close ();
 		} catch (SocketException se) {
 			print("Error while trying to close socket");
 			print(se.ToString());
@@ -138,7 +138,7 @@ public class UDPReceiver: MonoBehaviour
 	 * Updates the score counter.
 	 */
 	private void UpdateScoreGUI () {
-		//pointsText.text = "Points: " + points.ToString ();
+	//	pointsText.text = "Points: " + points.ToString ();
 	}
 
 	/**
@@ -162,22 +162,24 @@ public class UDPReceiver: MonoBehaviour
 		receiveThread.IsBackground = true;
 		receiveThread.Start();
 
-		print("Udp thread started on port " + port);
+		print("Udp thread started on port_android " + port_android);
 	}
 	
 	/**
-	 * Thread body that will listen to the given port for positionning data.
+	 * Thread body that will listen to the given port_android for positionning data.
 	 */
 	private void ReceiveData() {
-		client = new UdpClient(port);
+		client_android = new UdpClient(port_android);
+
 		while (true) {
 			try {
-				IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
-				byte[] data = client.Receive(ref anyIP);
-				string sensorData = Encoding.UTF8.GetString(data);
+				IPEndPoint anyIP_android = new IPEndPoint(IPAddress.Any, 0);
+				byte[] data_android = client_android.Receive(ref anyIP_android);
+				string sensorData = Encoding.UTF8.GetString(data_android);
 				print(">> " + sensorData);
 				
 				parseSensorData(sensorData);
+
 			} catch (Exception e) {
 				print("Error while trying to read data from socket");
 				print(e.ToString());
